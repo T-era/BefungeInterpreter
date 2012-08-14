@@ -1,0 +1,83 @@
+html {
+	height: 100%;
+}
+body {
+	background: #effff8;
+	height: 100%;
+}
+div#Header {
+	font-size: 24px;
+}
+div#Top {
+	height: 40%;
+}
+div#in {
+	float: left;
+	width: 49%;
+	height: 58%;
+}
+div#out {
+	background: #efefef;
+	float: left;
+	width: 49%;
+	height: 58%;
+}
+
+div>div#source {
+	margin-bottom: 3px;
+	background: #efefef;
+}
+div#console>textarea {
+	background: black;
+	color: white;
+}
+div#header>input[type="button"] {
+	background: #eaeaea;
+}
+div#source {
+	margin-right: 7px;
+}
+textarea {
+	width: 100%;
+	height: 100%;
+}
+table#dump {
+	width: 100%;
+}
+table td {
+	text-align: right;
+}
+input[type="button"] {
+	height: 24px;
+}
+
+table th {
+	background: #c0c0c0;
+}
+table th.title {
+	width: 60px;
+}
+.CharByChar {
+	float: left;
+	font-family: monospace;
+}
+.BackGround_Normal {
+	background: #efefef;
+}
+.BackGround_Break {
+	background: #a0a0ff;
+}
+.ForeGround_Normal {
+	color: blue;
+	font-weight: normal;
+}
+.ForeGround_Current {
+	color: red;
+	font-weight: bold;
+}
+.Frame_Normal {
+	text-decoration: none;
+}
+.Frame_GetPut {
+	text-decoration: blink;
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja-JP">
+	<head>
+		<title>Befunge Debuger</title>
+		<link rel="stylesheet" href="Parts/BefungeStyles.css" type="text/css" >
+		<link rel="stylesheet" href="Parts/BefungeHelpStyles.css" type="text/css" >
+		<script type="text/javascript" src="Parts/BefungeMain.js" ></script>
+		<script type="text/javascript" src="Parts/BefungeEditorContext.js" ></script>
+		<script type="text/javascript" src="Parts/BefungeHelpContext.js" ></script>
+		<script type="text/javascript" src="Parts/BefungeDebugContext.js" ></script>
+		<script type="text/javascript" src="Parts/BefungeCharByCharBox.js" ></script>
+		<script type="text/javascript" src="Parts/BefungeStackDumpContext.js" ></script>
+		<script type="text/javascript" src="Parts/BefungeCore.js" ></script>
+		<script type="text/javascript" src="Parts/BefungeConsoleContext.js" ></script>
+		
+<style type="text/css" >
+/*div { border: solid 1px; }*/
+</style>
+	</head>
+	<body onload="Befunge.OnLoad();" onresize="Befunge.ResizeWindow();">
+		<div id="Top">
+			<div id="header">
+				Debuger
+				<input id="HelpButton" value="?" type="button" onclick="Befunge.Help.Open();" />
+			</div>
+			<div id="console">
+				<textarea id="consoleView" readonly ></textarea>
+			</div>
+		</div>
+		<div id="in" >
+			<div id="buttons">
+				<input type="button" value="Editor/Cursol" onclick="Befunge.Editor.Switch();" />
+				&nbsp;
+				<input type="button" value="Run" onclick="Befunge.Debug.Run();" />
+				<input type="button" value="A step" onclick="Befunge.Debug.RunAStep();" />
+				<input type="button" value="To break point" onclick="Befunge.Debug.ToBreak();" />
+			</div>
+			<div id="source" class="part" ></div>
+		</div>
+		<div id="out">
+			<table id="dump" border="1">
+				<tr><th class="title">DUMP</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>-</th><th>8</th><th>9</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr>
+			</table>
+		</div>
+		<div id="HelpDiv" >
+			<input type="button" value="close" onclick="Befunge.Help.Close();" />
+			<h2>Befunge Debugger</h2>
+			<p>Interpreter, memory dump viewer and step-by-step debugger for all Befunge programmers.</p>
+			<p class="CopyRight">2012. T-era</p>
+			<h3>About debug</h3>
+			<h4>How to execute in debugger ?</h4>
+			<p>To use debugger...
+			<ul>
+				<li>Button "Run" for evaluate all script.</li>
+				<li>Button "A step" for evaluate a step.</li>
+				<li>Button "To break point" for execute script until break-point or end of script.</li>
+			</ul>
+			</p>
+			<h4>How to set break-point ?</h4>
+			<p>Click on a command, on view-mode.(Not edit-mode.)</p>
+		</div>
+	</body>
+</html>
