@@ -5,8 +5,7 @@ div.modal-overwrap {
   z-index: 999;
   left: 0;
   top: 0;
-  background: #444;
-  opacity: 0.9;
+  background: rgba(64,64,64,0.5);
 }
 div.modal-overwrap>div {
   position: absolute;
@@ -18,8 +17,12 @@ div.modal-overwrap>div {
   left: 0;
   right: 0;
   bottom: 0;
-  background: white;
+  background: rgba(255,255,255, 1);
   opacity: 1;
   border: 2px solid black;
   border-radius: 5px;
+}
+div.modal-overwrap * {
+  background: rgba(255,255,255, 1);
+  opacity: 1;
 }
