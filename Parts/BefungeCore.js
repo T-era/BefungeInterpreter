@@ -59,7 +59,7 @@ Befunge.BefungeCore = function(cbcList) {
 	}
 
 	var previous;
-	this.doAStep = function() {
+	this.doAStep = function(next) {
 		if (previous) {
 			previous.setCurrent(false);
 			for (var i = 0; i < getPutTemp.length; i ++) {
@@ -69,20 +69,24 @@ Befunge.BefungeCore = function(cbcList) {
 		}
 		var cbcNow = cbcList[cursol.y][cursol.x];
 		cbcNow.setCurrent(true);
-		var ret = doAStepIn(cbcNow);
+		doAStepIn(cbcNow, function(ret) {
+			cursol.toNext();
 
-		cursol.toNext();
+			previous = cbcNow;
+			next(argNext(ret));
+		});
 
-		previous = cbcNow;
-		if (ret == CursolState.Done) {
-			return Befunge.BefungeCore.StepResult.Done;
-		} else if (cbcList[cursol.y][cursol.x].hasBreak()) { // Next has breakpoint.
-			return Befunge.BefungeCore.StepResult.Break;
-		} else {
-			return Befunge.BefungeCore.StepResult.Continue;
+		function argNext(ret) {
+			if (ret == CursolState.Done) {
+				return Befunge.BefungeCore.StepResult.Done;
+			} else if (cbcList[cursol.y][cursol.x].hasBreak()) { // Next has breakpoint.
+				return Befunge.BefungeCore.StepResult.Break;
+			} else {
+				return Befunge.BefungeCore.StepResult.Continue;
+			}
 		}
 	}
-	function doAStepIn(cbcObj) {
+	function doAStepIn(cbcObj, next) {
 		if (cursolState == CursolState.Normal) {
 			var c = cbcObj.Char;
 			cmdMap[c]();
@@ -99,7 +103,7 @@ Befunge.BefungeCore = function(cbcList) {
 			throw "CursolState???";
 		}
 
-		return cursolState;
+		next(cursolState);
 	}
 
 	function setSrc(y, x, v) {

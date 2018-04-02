@@ -7,10 +7,13 @@ Befunge.Debug = new function() {
 		StartExecute();
 		InitDebug();
 
-		do {
-		} while(core.doAStep() != Befunge.BefungeCore.StepResult.Done);
-
-		finish();
+		core.doAStep(function _handler(resPrev) {
+			if (resPrev != Befunge.BefungeCore.StepResult.Done) {
+				core.doAStep(_handler);
+			} else {
+				finish();
+			}
+		});
 	};
 	this.RunAStep = function() {
 		if (core) {
@@ -18,10 +21,11 @@ Befunge.Debug = new function() {
 			StartExecute();
 			InitDebug();
 		}
-		var ret = core.doAStep();
-		if (ret == Befunge.BefungeCore.StepResult.Done) {
-			finish();
-		}
+		core.doAStep(function (ret) {
+			if (ret == Befunge.BefungeCore.StepResult.Done) {
+				finish();
+			}
+		});
 	};
 	this.ToBreak = function() {
 		if (core) {
@@ -29,14 +33,16 @@ Befunge.Debug = new function() {
 			StartExecute();
 			InitDebug();
 		}
-		var stepRet;
-		do {
-			stepRet = core.doAStep();
-		} while (stepRet != Befunge.BefungeCore.StepResult.Done && stepRet != Befunge.BefungeCore.StepResult.Break)
-		if (stepRet == Befunge.BefungeCore.StepResult.Done) {
-			finish();
-		}
+		core.doAStep(function _handler(resPrev) {
+			if (resPrev == Befunge.BefungeCore.StepResult.Done) {
+				finish();
+			} else if (resPrev == Befunge.BefungeCore.StepResult.Break) {
+			} else {
+				core.doAStep(_handler);
+			}
+		});
 	};
+
 	function StartExecute() {
 		Befunge.Editor.StopEdit();
 	}
