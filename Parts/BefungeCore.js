@@ -19,45 +19,60 @@ Befunge.BefungeCore = function(cbcList) {
 	var cursolState = CursolState.Normal;
 
 	var cmdMap = {
-		'<': function () { cursol.d = Direction.W; },
-		'>': function () { cursol.d = Direction.E; },
-		'^': function () { cursol.d = Direction.N; },
-		'v': function () { cursol.d = Direction.S; },
-		'_': function () { if (stack.pop() == 0) { cursol.d = Direction.E; } else { cursol.d = Direction.W; }},
-		'|': function () { if (stack.pop() == 0) { cursol.d = Direction.S; } else { cursol.d = Direction.N; }},
-		'?': function () { cursol.d = Math.floor(Math.random() * 4); },
-		' ': function () {},
-		'#': function () { cursolState = CursolState.Skipping; },
-		'@': function () { cursolState = CursolState.Done; },
-		'0': function () { stack.push(0); },
-		'1': function () { stack.push(1); },
-		'2': function () { stack.push(2); },
-		'3': function () { stack.push(3); },
-		'4': function () { stack.push(4); },
-		'5': function () { stack.push(5); },
-		'6': function () { stack.push(6); },
-		'7': function () { stack.push(7); },
-		'8': function () { stack.push(8); },
-		'9': function () { stack.push(9); },
-		'"': function () { cursolState = CursolState.Reading; },
-		'&': function () { var n = Befunge.getANumber(); stack.push(n); },
-		'~': function () { var c = Befunge.getAChar(); stack.push(c.charCodeAt(0)); },
-		'.': function () { Befunge.Console.Output(stack.pop()); Befunge.Console.Output(" ") },
-		',': function () { Befunge.Console.Output(String.fromCharCode(stack.pop())); },
-		'+': function () { stack.push(stack.pop() + stack.pop()); },
-		'-': function () { var y = stack.pop(); var x = stack.pop(); stack.push(x - y); },
-		'*': function () { stack.push(stack.pop() * stack.pop()); },
-		'/': function () { var y = stack.pop(); var x = stack.pop(); stack.push(Math.floor(x / y)); },
-		'%': function () { var y = stack.pop(); var x = stack.pop(); stack.push(x % y); },
-		'`': function () { stack.push(stack.pop() > stack.pop() ? 1 : 0); },
-		'!': function () { stack.push(stack.pop() == 0 ? 1 : 0); },
-		':': function () { var val = stack.pop(); stack.push(val); stack.push(val); },
-		'\\': function () {var val1 = stack.pop(); var val2 = stack.pop(); stack.push(val1); stack.push(val2); },
-		'$': function() { stack.pop(); },
-		'g': function() { var y = stack.pop(); var x = stack.pop(); stack.push(getSrc(y, x).charCodeAt(0)); },
-		'p': function() { var y = stack.pop(); var x = stack.pop(); var v = stack.pop(); setSrc(y, x, v); }
+		'<': joinNext(function () { cursol.d = Direction.W; }),
+		'>': joinNext(function () { cursol.d = Direction.E; }),
+		'^': joinNext(function () { cursol.d = Direction.N; }),
+		'v': joinNext(function () { cursol.d = Direction.S; }),
+		'_': joinNext(function () { if (stack.pop() == 0) { cursol.d = Direction.E; } else { cursol.d = Direction.W; }}),
+		'|': joinNext(function () { if (stack.pop() == 0) { cursol.d = Direction.S; } else { cursol.d = Direction.N; }}),
+		'?': joinNext(function () { cursol.d = Math.floor(Math.random() * 4); }),
+		' ': joinNext(function () {}),
+		'#': joinNext(function () { cursolState = CursolState.Skipping; }),
+		'@': joinNext(function () { cursolState = CursolState.Done; }),
+		'0': joinNext(function () { stack.push(0); }),
+		'1': joinNext(function () { stack.push(1); }),
+		'2': joinNext(function () { stack.push(2); }),
+		'3': joinNext(function () { stack.push(3); }),
+		'4': joinNext(function () { stack.push(4); }),
+		'5': joinNext(function () { stack.push(5); }),
+		'6': joinNext(function () { stack.push(6); }),
+		'7': joinNext(function () { stack.push(7); }),
+		'8': joinNext(function () { stack.push(8); }),
+		'9': joinNext(function () { stack.push(9); }),
+		'"': joinNext(function () { cursolState = CursolState.Reading; }),
+		'&': function (next) {
+			Befunge.InputView.inputNumber(function(n) {
+				stack.push(n);
+				next(cursolState);
+			});
+		},
+		'~': function (next) {
+			Befunge.InputView.inputChar(function(c) {
+				stack.push(c.charCodeAt(0));
+				next(cursolState);
+			});
+		},
+		'.': joinNext(function () { Befunge.Console.Output(stack.pop()); Befunge.Console.Output(" ") }),
+		',': joinNext(function () { Befunge.Console.Output(String.fromCharCode(stack.pop())); }),
+		'+': joinNext(function () { stack.push(stack.pop() + stack.pop()); }),
+		'-': joinNext(function () { var y = stack.pop(); var x = stack.pop(); stack.push(x - y); }),
+		'*': joinNext(function () { stack.push(stack.pop() * stack.pop()); }),
+		'/': joinNext(function () { var y = stack.pop(); var x = stack.pop(); stack.push(Math.floor(x / y)); }),
+		'%': joinNext(function () { var y = stack.pop(); var x = stack.pop(); stack.push(x % y); }),
+		'`': joinNext(function () { stack.push(stack.pop() > stack.pop() ? 1 : 0); }),
+		'!': joinNext(function () { stack.push(stack.pop() == 0 ? 1 : 0); }),
+		':': joinNext(function () { var val = stack.pop(); stack.push(val); stack.push(val); }),
+		'\\': joinNext(function () {var val1 = stack.pop(); var val2 = stack.pop(); stack.push(val1); stack.push(val2); }),
+		'$': joinNext(function() { stack.pop(); }),
+		'g': joinNext(function() { var y = stack.pop(); var x = stack.pop(); stack.push(getSrc(y, x).charCodeAt(0)); }),
+		'p': joinNext(function() { var y = stack.pop(); var x = stack.pop(); var v = stack.pop(); setSrc(y, x, v); })
 	}
-
+	function joinNext(f) {
+		return function(next) {
+			f();
+			next(cursolState);
+		}
+	}
 	var previous;
 	this.doAStep = function(next) {
 		if (previous) {
@@ -71,8 +86,8 @@ Befunge.BefungeCore = function(cbcList) {
 		cbcNow.setCurrent(true);
 		doAStepIn(cbcNow, function(ret) {
 			cursol.toNext();
-
 			previous = cbcNow;
+
 			next(argNext(ret));
 		});
 
@@ -89,7 +104,13 @@ Befunge.BefungeCore = function(cbcList) {
 	function doAStepIn(cbcObj, next) {
 		if (cursolState == CursolState.Normal) {
 			var c = cbcObj.Char;
-			cmdMap[c]();
+			var cmd = cmdMap[c];
+			if (cmd) {
+				cmd(next);
+			} else {
+				throw "Unknown command " + c;
+			};
+			return;
 		} else if (cursolState == CursolState.Skipping) {
 			cursolState = CursolState.Normal;
 		} else if (cursolState == CursolState.Reading) {
@@ -171,26 +192,6 @@ Befunge.BefungeCore = function(cbcList) {
 			}
 		}
 	}
-}
-Befunge.getAChar = function() {
-	var obj = {
-		f: function(value) {
-			return value.length == 1;
-			},
-		label: "Input a char."
-	};
-	var dlg = window.showModalDialog("Parts/InputView.html", obj, "dialogWidth=180px; dialogHeight=10px;");
-	return obj.Value;
-}
-Befunge.getANumber = function() {
-	var obj = {
-		f: function (value) {
-			return ! isNaN(value);
-		},
-		label: "Input a dec value."
-	};
-	var dlg = window.showModalDialog("Parts/InputView.html", obj, "dialogWidth=180px; dialogHeight=10px;");
-	return obj.Value;
 }
 
 Befunge.BefungeCore.StepResult = {
