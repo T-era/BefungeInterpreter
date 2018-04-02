@@ -6,6 +6,8 @@ Befunge.OnLoad = function() {
 	Befunge.Editor.OnLoad(document.getElementById("source"));
 	Befunge.Help.OnLoad(document.getElementById("HelpDiv"));
 	Befunge.Console.OnLoad(document.getElementById("consoleView"));
+
+	Befunge.InputView();
 }
 
 Befunge.ResizeWindow = function() {

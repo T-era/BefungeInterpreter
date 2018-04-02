@@ -1,0 +1,25 @@
+div.modal-overwrap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  background: #444;
+  opacity: 0.5;
+}
+div.modal-overwrap>div {
+  position: absolute;
+  padding: 5px;
+  margin: auto;
+  width: 200px;
+  height: 60px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  opacity: 1;
+  border: 2px solid black;
+  border-radius: 5px;
+}

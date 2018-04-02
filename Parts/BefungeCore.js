@@ -175,7 +175,8 @@ Befunge.getAChar = function() {
 			},
 		label: "Input a char."
 	};
-	var dlg = window.showModalDialog("Parts/InputView.html", obj, "dialogWidth=180px; dialogHeight=10px;");
+	//var dlg = window.showModalDialog("Parts/InputView.html", obj, "dialogWidth=180px; dialogHeight=10px;");
+	var input = Befunge.InputView("Befunge: Input a char.")
 	return obj.Value;
 }
 Befunge.getANumber = function() {

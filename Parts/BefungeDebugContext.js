@@ -1,8 +1,10 @@
 Befunge.Debug = new function() {
 	var core;
+
 	this.Stop = function() {
 		core = false;
 	}
+
 	this.Run = function() {
 		StartExecute();
 		InitDebug();
@@ -18,6 +20,7 @@ Befunge.Debug = new function() {
 			StartExecute();
 			InitDebug();
 		}
+
 		var ret = core.doAStep();
 		if (ret == Befunge.BefungeCore.StepResult.Done) {
 			finish();
@@ -29,6 +32,7 @@ Befunge.Debug = new function() {
 			StartExecute();
 			InitDebug();
 		}
+
 		var stepRet;
 		do {
 			stepRet = core.doAStep();
