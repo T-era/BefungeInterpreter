@@ -6,13 +6,13 @@ div.modal-overwrap {
   left: 0;
   top: 0;
   background: #444;
-  opacity: 0.5;
+  opacity: 0.9;
 }
 div.modal-overwrap>div {
   position: absolute;
   padding: 5px;
   margin: auto;
-  width: 200px;
+  width: 400px;
   height: 60px;
   top: 0;
   left: 0;
