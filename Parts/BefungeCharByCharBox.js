@@ -3,7 +3,7 @@
 Befunge.CharByChar = function(source) {
 	var list = [];
 	list.Source = source;
-	
+
 	var sourceLines = source.split('\n');
 	for (var i = 0; i < sourceLines.length; i ++) {
 		var aLineSrc = sourceLines[i];

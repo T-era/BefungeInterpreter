@@ -98,7 +98,7 @@ Befunge.BefungeCore = function(cbcList) {
 		} else {
 			throw "CursolState???";
 		}
-		
+
 		return cursolState;
 	}
 
@@ -119,7 +119,7 @@ Befunge.BefungeCore = function(cbcList) {
 		var cbc = cbcList[y][x];
 		cbc.setGetPut(true);
 		getPutTemp.push(cbc);
-		
+
 		return cbc.Char;
 	}
 
@@ -130,7 +130,7 @@ Befunge.BefungeCore = function(cbcList) {
 			d: Direction.E,
 			toNext: function() { toNextIn(this); }
 		}
-		
+
 		function toNextIn(obj) {
 			switch (obj.d) {
 			case Direction.N:

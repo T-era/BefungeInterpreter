@@ -11,7 +11,7 @@ Befunge.OnLoad = function() {
 Befunge.ResizeWindow = function() {
 	ResizeDiv("Top", "console", "header");
 	ResizeDiv("in", "source", "buttons");
-	
+
 	function ResizeDiv(outId, targetId, fixedId) {
 		var outDiv = document.getElementById(outId);
 		var targetDiv = document.getElementById(targetId);
