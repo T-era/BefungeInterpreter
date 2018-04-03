@@ -88,7 +88,7 @@ Befunge.BefungeCore = function(cbcList) {
 			cursol.toNext();
 			previous = cbcNow;
 
-			next(argNext(ret));
+			setTimeout(function() { next(argNext(ret)); }, 0);
 		});
 
 		function argNext(ret) {
