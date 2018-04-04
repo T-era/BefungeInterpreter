@@ -64,7 +64,7 @@ Befunge.BefungeCore = function(cbcList) {
 		':': joinNext(function () { var val = stack.pop(); stack.push(val); stack.push(val); }),
 		'\\': joinNext(function () {var val1 = stack.pop(); var val2 = stack.pop(); stack.push(val1); stack.push(val2); }),
 		'$': joinNext(function() { stack.pop(); }),
-		'g': joinNext(function() { var y = stack.pop(); var x = stack.pop(); stack.push(getSrc(y, x).charCodeAt(0)); }),
+		'g': joinNext(function() { var y = stack.pop(); var x = stack.pop(); stack.push(getSrc(y, x).CharCode); }),
 		'p': joinNext(function() { var y = stack.pop(); var x = stack.pop(); var v = stack.pop(); setSrc(y, x, v); })
 	}
 	function joinNext(f) {
@@ -132,20 +132,20 @@ Befunge.BefungeCore = function(cbcList) {
 			cbcList.push([]);
 		}
 		while(x >= cbcList[y].length) {
-			cbcList[y].push(new Befunge.CbCObj(" "));
+			cbcList[y].push(new Befunge.CbCObj(0));
 		}
 		var cbc = cbcList[y][x];
 		cbc.setGetPut(true);
 		getPutTemp.push(cbc);
 
-		cbc.SetChar(String.fromCharCode(v));
+		cbc.SetChar(v);
 	}
 	function getSrc(y, x) {
 		var cbc = cbcList[y][x];
 		cbc.setGetPut(true);
 		getPutTemp.push(cbc);
 
-		return cbc.Char;
+		return cbc;
 	}
 
 	function Cursol() {

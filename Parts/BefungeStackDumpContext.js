@@ -25,8 +25,12 @@ Befunge.StackDump = function() {
 		var row = (index - col) / 16;
 		var id = getIdString(row + 1, col);
 		var tdElm = document.getElementById(id);
-		tdElm.innerHTML = "";
-		return ret;
+		if (tdElm) {
+			tdElm.innerHTML = "";
+			return ret;
+		} else {
+			return 0;
+		}
 	}
 
 	function createNewDebugLine() {

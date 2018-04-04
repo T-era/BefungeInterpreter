@@ -9,27 +9,29 @@ Befunge.CharByChar = function(source) {
 		var aLineSrc = sourceLines[i];
 		var aLine = [];
 		for (var j = 0; j < aLineSrc.length; j ++) {
-			var c = aLineSrc.charAt(j);
-			aLine.push(new Befunge.CbCObj(c));
+			var charCode = aLineSrc.charCodeAt(j);
+			aLine.push(new Befunge.CbCObj(charCode));
 		}
 		list.push(aLine);
 	}
 	return list;
 }
-Befunge.CbCObj = function(c) {
+Befunge.CbCObj = function(charCode) {
+	var c = String.fromCharCode(charCode);
 	var dom = document.createElement("div");
 	var _hasBreak = false;
-	this.SetChar = function(c) {
-		var code = c.charCodeAt(0);
-		if (code <= 32 || code > 127) {
+	this.SetChar = function(charCode) {
+		var c = String.fromCharCode(charCode);
+		if (charCode <= 32 || charCode > 127) {
 			dom.innerHTML = "&nbsp;";
 		} else {
 			dom.innerHTML = c;
 		}
 		this.Char = c;
+		this.CharCode = charCode;
 	}
 
-	this.SetChar(c);
+	this.SetChar(charCode);
 	dom.className = "CharByChar";
 	dom.onclick = function() {
 		if (_hasBreak) {
